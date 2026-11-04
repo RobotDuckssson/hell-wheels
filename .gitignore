@@ -1,0 +1,14 @@
+# Godot 4 cache and import data (regenerated when the project is opened)
+.godot/
+*.translation
+
+# Raw source assets (blend archives, STL files) - kept locally only
+Figurer/
+
+# Exports and OS junk
+export/
+builds/
+*.tmp
+Thumbs.db
+desktop.ini
+.DS_Store

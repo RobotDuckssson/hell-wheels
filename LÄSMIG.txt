@@ -1,0 +1,131 @@
+HELL WHEELS
+===========
+Gatrace i en framtida stad i skymningen. Höga hus, neon, regn och flygande trafik.
+Gjort för Godot 4.7 (Forward+). Hela världen, bilarna och ljuden byggs av koden
+när spelet startar, så projektet behöver inga modeller, texturer eller ljudfiler.
+
+Starta
+------
+1. Öppna Godot och välj Importera.
+2. Välj project.godot i den här mappen och klicka Importera och redigera.
+3. Tryck F5.
+
+Spellägen
+---------
+FÖRST I MÅL  Kör 1, 2, 3 eller 5 varv. Den som är först över mållinjen vinner.
+             Vrakade bilar kommer tillbaka efter ungefär tre sekunder.
+SIST KVAR    Alla börjar utspridda på banan, hälften åt fel håll. Ramma de andra.
+             Vrakad är vrakad. Efter 2,5 minuter börjar Sudden death: alla bilar
+             tappar hälsa tills bara en är kvar.
+
+Svårighet
+---------
+LÄTT   5 motståndare. Långsammare, försiktiga i kurvorna. Du tål mer och lagas mer.
+MEDEL  6 motståndare. Knuffas när du kör bredvid.
+SVÅR   7 motståndare. Snabba och aggressiva, jagar dig i Sist kvar. Du tål mindre.
+
+Banor
+-----
+Alla banor ligger högt uppe bland skyskraporna, på pelare 30–50 meter över gatan.
+Gula ränder och skylten HOPP! visar var ramperna är. Kör i minst 60 km/h, annars
+når du inte över luckan. Där räcket saknas (lysande kantlist) kan du åka av och
+falla. Då sätts du tillbaka på banan efter ett par sekunder.
+
+NEONKVARTEREN  Gatubana med skarpa hörn, ett långt hopp och ett krön. Regn.
+VIADUKTEN      En åtta i två plan som går över sig själv. Två hopp, orange smog.
+UNDRE STADEN   Smal och slingrig, med en lång tunnel och ett hopp. Regn.
+STOCKHOLM      Solig sommardag. Broar över vattnet, färgglada stenhus,
+               kopparspiror och en korsning direkt efter starten.
+
+Bilar
+-----
+VEKTOR     Allroundbil.
+STILETT    Snabbast, tål minst.
+MASTODONT  Pansrad lastbil. Långsam, tung och nästan omöjlig att stoppa.
+GETING     Liten, kvick, bäst grepp. Går sönder lätt.
+KAB-9      Taxi. Tålig med bra grepp.
+RAPTOR     Muskelbil. Stark motor, sladdar gärna.
+
+Skador: hårda krockar kostar hälsa. Den som rammar med fronten klarar sig bättre
+än den som blir träffad. Vid 75, 50 och 25 procent kvar lossnar delar, lacken
+mörknar, det börjar ryka och till slut brinna. På noll exploderar bilen.
+
+Kontroller
+----------
+                 Tangentbord        Handkontroll
+Gas              W / Pil upp        Höger avtryckare
+Broms / back     S / Pil ned        Vänster avtryckare
+Styr             A D / Pilar        Vänster spak
+Sladd            Space              B
+Boost            Shift              A
+Tillbaka på ban. R                  Y
+Byt kamera       C                  X
+Paus             Esc / P            Start
+
+Boosten fylls på av sig själv. Hamnar du utanför banan eller upp och ner
+sätts du tillbaka automatiskt efter ett par sekunder.
+
+Om spelet går segt
+------------------
+Välj GRAFIK: LÅG i menyn. Då stängs reflexer, volymdimma och skuggor av och det
+blir färre ljus och mindre regn.
+
+Byta ut bilarna mot riktiga modeller
+------------------------------------
+Lägg en modell i mappen models/ med bilens namn i små bokstäver. Formaten
+.glb, .gltf och .fbx fungerar:
+  models/vektor.glb  models/stilett.glb  models/mastodont.glb
+  models/geting.glb  models/kab9.glb     models/raptor.glb
+Modellen ska ha fronten åt -Z (Godots framåt). Vänder den åt fel håll, säg till
+så lägger jag in en vridning i koden. Spelet skalar
+modellen så att den blir lika lång som bilens krocklåda och ställer den på marken.
+När en egen modell finns ritar spelet varken sin egen kaross eller sina hjul för
+den bilen. Fart, grepp, hälsa och krocklåda ändras i scripts/car_types.gd.
+
+Just nu används Kenneys bilar (assets/bilar, CC0):
+  VEKTOR = sedan-sports, STILETT = race-future, MASTODONT = truck,
+  GETING = hatchback-sports, KAB-9 = taxi, RAPTOR = race.
+Karossens färg byts mot bilens lack, hjulen snurrar och svänger, och vid krockar
+flyger Kenneys lösa delar av (stötfångare, dörrar, spoilers, däck).
+Vill du byta bil: ändra raden "kenney" för bilen i scripts/car_types.gd. Siffran
+efter filnamnet är vilken ruta i färgpaletten som är karossen.
+Tar du bort raden "kenney" används models/<namn>.glb i stället (dina STL-bilar).
+
+Gratis bilmodeller (CC0, fria att använda):
+  Kenney Car Kit       https://kenney.nl/assets/car-kit
+  Quaternius LowPoly   https://quaternius.itch.io/lowpoly-cars
+
+Baneditorn
+----------
+Tryck BANEDITOR i menyn.
+  Vänsterklick på tom yta    lägg till en punkt efter den valda
+  Vänsterklick på en linje   infoga en punkt där
+  Dra en punkt               flytta den
+  Högerdra / hjul            panorera / zooma
+  Delete                     ta bort vald punkt
+För vald punkt ställer du höjd och kurvradie. För sträckan efter punkten väljer du
+tunnel, utan räcken och hopp (krön eller lucka). Vägen färgas efter höjd: blå är
+låg, rosa är hög. Där vägar korsar varandra ritas den högsta överst.
+Rutan KONTROLL varnar om två vägar korsar med för liten höjdskillnad (minst 11 m),
+om ett hopp ligger på en för kort sträcka eller om banan går under gatan.
+SPARA lägger banan i Godots användarmapp:
+  Windows: %APPDATA%\Godot\app_userdata\Hell Wheels\banor\
+PROVKÖR sparar och startar ett lopp direkt. Sparade banor syns i menyn med en ★.
+KOPIERA FÄRDIG ger dig en kopia av en inbyggd bana (den med valt tema) att bygga om.
+
+Om något går fel
+----------------
+Längst ner i Godot-fönstret finns panelerna Utdata och Felsökare. Fel visas med
+röd text. Kopiera de röda raderna och skicka dem till Claude.
+
+Mappar
+------
+scripts/car.gd         bilfysik, skador, vrak
+scripts/car_types.gd   de sex bilarnas egenskaper och utseende
+scripts/car_model.gd   bygger bilarna (och laddar egna modeller)
+scripts/tracks.gd      banornas form, färger och väder
+scripts/track.gd       bygger vägbana, räcken, lyktor, tunnlar, startportal
+scripts/city.gd        skyskrapor, skyltar, hologram, trafik, himmel och dimma
+scripts/ai_driver.gd   datorförarna
+scripts/main.gd        lopp, placeringar, svårighetsgrader
+shaders/               vägbana, mark, fönster, hologram, flygtrafik
